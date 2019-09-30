@@ -142,6 +142,7 @@ public class DecisionElement extends PolymerTemplate<DecisionElement.DecisionMod
             uiEventLogger.debug("*** {} majority decision ({})", this.getOrigin(),
                     this.getParent().get().getClass().getSimpleName());
             this.getElement().callJsFunction("showDecisions", false, e.ref1, e.ref2, e.ref3);
+            getModel().setEnabled(false);
         });
     }
 
@@ -150,7 +151,6 @@ public class DecisionElement extends PolymerTemplate<DecisionElement.DecisionMod
         UIEventProcessor.uiAccessIgnoreIfSelfOrigin(this, uiEventBus, e, this.getOrigin(), e.getOrigin(), () -> {
             getElement().callJsFunction("reset", false);
             logger.debug("slaveReset disable");
-            getModel().setEnabled(false);
         });
     }
 
