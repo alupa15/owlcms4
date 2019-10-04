@@ -39,7 +39,7 @@ public class DecisionElement extends PolymerTemplate<DecisionElement.DecisionMod
      * The Interface DecisionModel.
      */
     public interface DecisionModel extends TemplateModel {
-        
+
         boolean isEnabled();
 
         boolean isJury();
@@ -123,8 +123,10 @@ public class DecisionElement extends PolymerTemplate<DecisionElement.DecisionMod
 
     @Subscribe
     public void slaveBreakStart(UIEvent.BreakStarted e) {
-        logger.debug("slaveBreakStart disable");
-        getModel().setEnabled(false);
+        UIEventProcessor.uiAccess(this, uiEventBus, () -> {
+            logger.debug("slaveBreakStart disable");
+            getModel().setEnabled(false);
+        });
     }
 
     @Subscribe
@@ -156,14 +158,18 @@ public class DecisionElement extends PolymerTemplate<DecisionElement.DecisionMod
 
     @Subscribe
     public void slaveStartTimer(UIEvent.StartTime e) {
-        logger.debug("slaveStartTimer enable");
-        getModel().setEnabled(true);
+        UIEventProcessor.uiAccess(this, uiEventBus, () -> {
+            logger.debug("slaveStartTimer enable");
+            getModel().setEnabled(true);
+        });
     }
 
     @Subscribe
     public void slaveStopTimer(UIEvent.StopTime e) {
-        logger.debug("slaveStopTimer enable");
-        getModel().setEnabled(true);
+        UIEventProcessor.uiAccess(this, uiEventBus, () -> {
+            logger.debug("slaveStopTimer enable");
+            getModel().setEnabled(true);
+        });
     }
 
     protected Object getOrigin() {
