@@ -6,24 +6,16 @@
  */
 package app.owlcms.ui.preparation;
 
-import java.util.Locale;
-
 import org.slf4j.LoggerFactory;
 import org.vaadin.crudui.crud.CrudOperation;
-import org.vaadin.crudui.form.impl.form.factory.DefaultCrudFormFactory;
 import org.vaadin.crudui.layout.CrudLayout;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
-import com.vaadin.flow.component.ItemLabelGenerator;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.data.renderer.TextRenderer;
 import com.vaadin.flow.router.Route;
 
 import app.owlcms.data.competition.Competition;
-import app.owlcms.i18n.Translator;
-import app.owlcms.ui.crudui.OwlcmsComboBoxProvider;
 import app.owlcms.ui.shared.OwlcmsContent;
 import app.owlcms.ui.shared.OwlcmsRouterLayout;
 import ch.qos.logback.classic.Level;
@@ -44,7 +36,7 @@ public class CompetitionContent extends Composite<VerticalLayout> implements Cru
      */
     public CompetitionContent() {
         initLoggers();
-        CompetitionEditingFormFactory factory = createFormFactory();
+        CompetitionEditingFormFactory_new factory = createFormFactory();
         Component form = factory.buildNewForm(CrudOperation.UPDATE, Competition.getCurrent(), false, null, event -> {
         });
         fillH(form, getContent());
@@ -60,47 +52,49 @@ public class CompetitionContent extends Composite<VerticalLayout> implements Cru
 
     /**
      * Define the form used to edit a given athlete.
-     * 
+     *
      * @return the form factory that will create the actual form on demand
      */
-    protected CompetitionEditingFormFactory createFormFactory() {
-        CompetitionEditingFormFactory competitionEditingFormFactory = new CompetitionEditingFormFactory(
+    protected CompetitionEditingFormFactory_new createFormFactory() {
+//        CompetitionEditingFormFactory competitionEditingFormFactory = new CompetitionEditingFormFactory(
+//                Competition.class);
+//        createFormLayout(competitionEditingFormFactory);
+        CompetitionEditingFormFactory_new competitionEditingFormFactory = new CompetitionEditingFormFactory_new(
                 Competition.class);
-        createFormLayout(competitionEditingFormFactory);
         return competitionEditingFormFactory;
     }
 
-    /**
-     * The content and ordering of the editing form
-     * 
-     * @param crudFormFactory the factory that will create the form using this
-     *                        information
-     */
-    private void createFormLayout(DefaultCrudFormFactory<Competition> crudFormFactory) {
-        crudFormFactory.setVisibleProperties("competitionName", "competitionDate", "competitionOrganizer",
-                "competitionSite", "competitionCity", "federation", "federationAddress", "federationEMail",
-                "federationWebSite", "defaultLocale",
-//			"protocolFileName",
-//			"finalPackageTemplateFileName",
-                "enforce20kgRule", "masters", "useBirthYear");
-        crudFormFactory.setFieldCaptions(Translator.translate("Competition.competitionName"),
-                Translator.translate("Competition.competitionDate"),
-                Translator.translate("Competition.competitionOrganizer"),
-                Translator.translate("Competition.competitionSite"),
-                Translator.translate("Competition.competitionCity"), Translator.translate("Competition.federation"),
-                Translator.translate("Competition.federationAddress"),
-                Translator.translate("Competition.federationEMail"),
-                Translator.translate("Competition.federationWebSite"),
-                Translator.translate("Competition.defaultLocale"),
-                // Translator.translate(""protocolFileName"),
-                // Translator.translate(""finalPackageTemplateFileName"),
-                Translator.translate("Competition.enforce20kgRule"), Translator.translate("Competition.masters"),
-                Translator.translate("Competition.useBirthYear"));
-        ItemLabelGenerator<Locale> nameGenerator = (locale) -> locale.getDisplayName(locale);
-        crudFormFactory.setFieldProvider("defaultLocale", new OwlcmsComboBoxProvider<>(getTranslation("Locale"),
-                Translator.getAllAvailableLocales(), new TextRenderer<>(nameGenerator), nameGenerator));
-        crudFormFactory.setFieldType("competitionDate", DatePicker.class);
-    }
+//    /**
+//     * The content and ordering of the editing form
+//     *
+//     * @param crudFormFactory the factory that will create the form using this
+//     *                        information
+//     */
+//    private void createFormLayout(DefaultCrudFormFactory<Competition> crudFormFactory) {
+//        crudFormFactory.setVisibleProperties("competitionName", "competitionDate", "competitionOrganizer",
+//                "competitionSite", "competitionCity", "federation", "federationAddress", "federationEMail",
+//                "federationWebSite", "defaultLocale",
+////			"protocolFileName",
+////			"finalPackageTemplateFileName",
+//                "enforce20kgRule", "masters", "useBirthYear");
+//        crudFormFactory.setFieldCaptions(Translator.translate("Competition.competitionName"),
+//                Translator.translate("Competition.competitionDate"),
+//                Translator.translate("Competition.competitionOrganizer"),
+//                Translator.translate("Competition.competitionSite"),
+//                Translator.translate("Competition.competitionCity"), Translator.translate("Competition.federation"),
+//                Translator.translate("Competition.federationAddress"),
+//                Translator.translate("Competition.federationEMail"),
+//                Translator.translate("Competition.federationWebSite"),
+//                Translator.translate("Competition.defaultLocale"),
+//                // Translator.translate(""protocolFileName"),
+//                // Translator.translate(""finalPackageTemplateFileName"),
+//                Translator.translate("Competition.enforce20kgRule"), Translator.translate("Competition.masters"),
+//                Translator.translate("Competition.useBirthYear"));
+//        ItemLabelGenerator<Locale> nameGenerator = (locale) -> locale.getDisplayName(locale);
+//        crudFormFactory.setFieldProvider("defaultLocale", new OwlcmsComboBoxProvider<>(getTranslation("Locale"),
+//                Translator.getAllAvailableLocales(), new TextRenderer<>(nameGenerator), nameGenerator));
+//        crudFormFactory.setFieldType("competitionDate", DatePicker.class);
+//    }
 
     /**
      * @see com.vaadin.flow.router.HasDynamicTitle#getPageTitle()
